@@ -1,5 +1,8 @@
 package com.netflix.Netflix.movie;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -7,10 +10,22 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class MovieController {
 
-	@GetMapping(value = "/all")
-	private String getAllMovies() {
-	    String uri = "https://api.themoviedb.org/3/movie/550?api_key=48be4332df8912d896ba3e7762604d5f";
-	    RestTemplate restTemplate = new RestTemplate();
-		return restTemplate.getForObject(uri, String.class);
+	@Autowired
+	RestTemplate restTemplate;
+
+	@Value("${serviceURL}")
+	String serviceURL;
+
+	@Value("${apiKey}")
+	String apiKey;
+
+	@GetMapping("/all")
+	String getAvailableOperations() {
+		return restTemplate.getForObject(serviceURL + "/movie/550?api_key=" + apiKey, String.class);
+	}
+
+	@Bean
+	public RestTemplate rest() {
+		return new RestTemplate();
 	}
 }
