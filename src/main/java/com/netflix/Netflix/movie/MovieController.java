@@ -8,11 +8,9 @@ import org.springframework.web.client.RestTemplate;
 public class MovieController {
 
 	@GetMapping(value = "/all")
-	private String getStudentString()
-	{
+	private String getAllMovies() {
 	    String uri = "https://api.themoviedb.org/3/movie/550?api_key=48be4332df8912d896ba3e7762604d5f";
 	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
-	    return result; 
+		return restTemplate.getForObject(uri, String.class);
 	}
 }
