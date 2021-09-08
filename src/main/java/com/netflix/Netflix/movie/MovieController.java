@@ -41,6 +41,15 @@ public class MovieController {
 
 
     }
+    @RequestMapping("/genre/movie/list")
+    String getGenres() {
+        String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",String.class);
+        return movieGenres;
+
+
+    }
+
+
 
     @Bean
     public RestTemplate rest() {
