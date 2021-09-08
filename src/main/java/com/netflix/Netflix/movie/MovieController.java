@@ -33,6 +33,30 @@ public class MovieController {
 		return new Movie(movieId, movieSummary.getTitle(), movieSummary.getOverview());
 
 	}
+	@RequestMapping("/discover")
+	String getDiscoverMovie() {
+		String moviesToDiscover = restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+, String.class);
+		return moviesToDiscover;
+
+
+	}
+
+	@RequestMapping("/discover")
+	String getDiscoverMovieAscending() {
+		String moviesToDiscover = restTemplate.getForObject("https://api.themoviedb.org/3/discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+				, String.class);
+		return moviesToDiscover;
+
+
+	}
+
+
+
+
+
+
+
 
 	@Bean
 	public RestTemplate rest() {
