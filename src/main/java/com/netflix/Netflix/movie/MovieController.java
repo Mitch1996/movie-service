@@ -3,14 +3,12 @@ package com.netflix.Netflix.movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping("/movies")
+@CrossOrigin
 public class MovieController {
 
     @Autowired
@@ -18,6 +16,9 @@ public class MovieController {
 
     @Value("${serviceURL}")
     String serviceURL;
+
+    @Autowired
+    MovieService movieService;
 
     @Value("${apiKey}")
     String apiKey;
@@ -27,11 +28,9 @@ public class MovieController {
         return restTemplate.getForObject(serviceURL + "movie/550?api_key=" + apiKey, String.class);
     }
 
-    @RequestMapping("/{movieId}")
-    public Movie getMovieInfo(@PathVariable("movieId") String movieId) {
-        MovieSummary movieSummary = restTemplate.getForObject(serviceURL + "movie/" + movieId + "?api_key=" + apiKey, MovieSummary.class);
-        return new Movie(movieId, movieSummary.getTitle(), movieSummary.getOverview());
-
+    @GetMapping("/{movieId}")
+    public ResponseEntity<String> getMovieInfo(@PathVariable("movieId") Integer movieId) {
+        return movieService.findById(movieId, apiKey);
     }
 
     @RequestMapping("/discover")
