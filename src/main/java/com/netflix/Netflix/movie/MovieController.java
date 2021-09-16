@@ -23,22 +23,19 @@ public class MovieController {
     @Value("${apiKey}")
     String apiKey;
 
-    @GetMapping("/full")
-    String getMovie() {
-        return restTemplate.getForObject(serviceURL + "movie/550?api_key=" + apiKey, String.class);
-    }
-
     @GetMapping("/{movieId}")
     public ResponseEntity<String> getMovieInfo(@PathVariable("movieId") Integer movieId) {
         return movieService.findById(movieId, apiKey);
     }
 
-    @RequestMapping("/discover")
-    String getDiscoverMovie() {
-        String moviesToDiscover = restTemplate.getForObject(serviceURL + "discover/movie?api_key=" + apiKey + "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate", String.class);
-        return moviesToDiscover;
+    @GetMapping("discovery/{sort}/{include_vid}/{page}")
+    public ResponseEntity<String> getDiscoverInfo( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page) {
+        return movieService.dicovery(sort, include_vid, page);
+    }
 
-
+    @GetMapping("genre")
+    public ResponseEntity<String> genre() {
+        return movieService.genre();
     }
 
     @Bean
