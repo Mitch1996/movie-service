@@ -23,11 +23,6 @@ public class MovieController {
     @Value("${apiKey}")
     String apiKey;
 
-    @GetMapping("{movieId}")
-    public ResponseEntity<String> getMovieInfo(@PathVariable("movieId") Integer movieId) {
-        return movieService.findById(movieId, apiKey);
-    }
-
     @GetMapping("discovery/{sort}/{include_vid}/{page}/{year}/{genre}")
     public ResponseEntity<String> getDiscoverInfo( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("genre") String genre) {
 
@@ -92,11 +87,6 @@ public class MovieController {
         }
 
         return movieService.dicovery(sort, include_vid, page, year, genre);
-    }
-
-    @GetMapping("genre")
-    public ResponseEntity<String> genre() {
-        return movieService.genre();
     }
 
     @Bean
