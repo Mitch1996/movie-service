@@ -23,7 +23,7 @@ public class MovieController {
     @Value("${apiKey}")
     String apiKey;
 
-    @GetMapping("/{movieId}")
+    @GetMapping("{movieId}")
     public ResponseEntity<String> getMovieInfo(@PathVariable("movieId") Integer movieId) {
         return movieService.findById(movieId, apiKey);
     }
