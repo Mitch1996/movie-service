@@ -14,11 +14,13 @@ public interface MovieService {
     @GetMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<String> findById(@PathVariable Integer id, @RequestParam("api_key") String apiKey);
 
-    @GetMapping(value = "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&with_watch_monetization_types=flatrate")
+    @GetMapping(value = "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&primary_release_year={year}&&with_genres={genre}&with_watch_monetization_types=flatrate")
     ResponseEntity<String> dicovery(
             @PathVariable("sort") String sort,
             @PathVariable("include_vid") String include_vid,
-            @PathVariable("page") Integer page);
+            @PathVariable("page") Integer page,
+            @PathVariable("year") Integer year,
+            @PathVariable("genre") String genre);
 
 
     @GetMapping(value = "genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US")
@@ -26,5 +28,4 @@ public interface MovieService {
 }
 
 
-//api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US
 
