@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "MovieDb", url = "${serviceURL}")
 public interface MovieService {
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    ResponseEntity<String> findById(@PathVariable Integer id, @RequestParam("api_key") String apiKey);
-
     @RequestMapping(value = "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate" , method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<String> dicovery(
@@ -21,9 +18,6 @@ public interface MovieService {
             @PathVariable("year") Integer year,
             @PathVariable("genre") String genre);
 
-
-    @GetMapping(value = "genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US")
-    ResponseEntity<String> genre();
 }
 
 
