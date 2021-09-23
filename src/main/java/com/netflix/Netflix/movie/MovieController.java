@@ -28,7 +28,7 @@ public class MovieController {
 
 
     @GetMapping("discovery/{sort}/{include_vid}/{page}/{year}/{genre}")
-    public ResponseEntity<String> getDiscoverInfo( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year ,  @PathVariable("genre") String genre
+    public ResponseEntity<String> getDiscoverInfo(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("genre") String genre
     ) {
         switch (genre) {
             case "Action":
@@ -91,20 +91,83 @@ public class MovieController {
         }
 
 
-        return movieService.discovery(sort, include_vid, page, year,genre);
+        return movieService.discovery(sort, include_vid, page, year, genre);
     }
 
 
     @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
-    public ResponseEntity<String> getDisneyMovies( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year , @PathVariable("with_companies") String with_companies
+    public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("with_companies") String with_companies
     ) {
-        if (with_companies.equals("disney")){
+        if (with_companies.equals("disney")) {
             with_companies = "6125";
             System.out.println(with_companies);
-        }else{
+        } else {
             System.out.println("error movie company not found");
         }
-        return movieService.Disney(sort, include_vid, page, year,with_companies);
+        return movieService.Disney(sort, include_vid, page, year, with_companies);
+    }
+
+
+//    http://api.themoviedb.org/3/discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&with_cast=62
+
+    @GetMapping("/{castID}")
+    public ResponseEntity<String> GetMoviesOfActor( @PathVariable("castID") String castID) {
+
+        switch (castID) {
+            case "brucewilles":
+                castID = "62";
+                break;
+            case "arnoldschwarzenegger":
+                castID = "1100";
+                break;
+            case "jacknicholson":
+                castID = "514";
+                break;
+            case "keanureeves":
+                castID = "6384";
+                break;
+            case "denzelwashington":
+                castID = "5292";
+                break;
+            case "alpacino":
+                castID = "1158";
+                break;
+            case "ryanreynolds":
+                castID = "10859";
+                break;
+            case "dwaynejohnson":
+                castID = "18918";
+                break;
+            case "adamsandler":
+                castID = "19292";
+                break;
+            case "willsmith":
+                castID = "2888";
+                break;
+
+            case "jackiechan":
+                castID = "18897";
+                break;
+            case "scarlettjohansson":
+                castID = "1245";
+                break;
+            case "galgadot":
+                castID = "90633";
+                break;
+            case "markwahlberg":
+                castID = "13240";
+                break;
+
+            default :
+                System.out.println("actor not found");
+                break;
+
+
+
+
+        }
+        return movieService.actorMovies(castID);
+
     }
 
 
