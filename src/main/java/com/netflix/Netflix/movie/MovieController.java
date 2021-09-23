@@ -94,6 +94,7 @@ public class MovieController {
         return movieService.discovery(sort, include_vid, page, year,genre);
     }
 
+
     @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
     public ResponseEntity<String> getDisneyMovies( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year , @PathVariable("with_companies") String with_companies
     ) {
