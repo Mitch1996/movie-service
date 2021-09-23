@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+//import static com.netflix.Netflix.movie.MovieService.with_companies;
+
 @RestController
 @RequestMapping("/api/v1")
 public class MovieController {
@@ -22,10 +24,12 @@ public class MovieController {
 
     @Value("${apiKey}")
     String apiKey;
+//    "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&with_companies={with_companies}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate" , method = RequestMethod.GET)
+
 
     @GetMapping("discovery/{sort}/{include_vid}/{page}/{year}/{genre}")
-    public ResponseEntity<String> getDiscoverInfo( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("genre") String genre) {
-
+    public ResponseEntity<String> getDiscoverInfo( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year ,  @PathVariable("genre") String genre
+    ) {
         switch (genre) {
             case "Action":
                 genre = "28";
@@ -86,8 +90,36 @@ public class MovieController {
                 break;
         }
 
-        return movieService.dicovery(sort, include_vid, page, year, genre);
+
+        return movieService.discovery(sort, include_vid, page, year,genre);
     }
+
+
+    @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
+    public ResponseEntity<String> getDisneyMovies( @PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year , @PathVariable("with_companies") String with_companies
+    ) {
+        if (with_companies.equals("disney")){
+            with_companies = "6125";
+            System.out.println(with_companies);
+        }else{
+            System.out.println("error movie company not found");
+        }
+        return movieService.Disney(sort, include_vid, page, year,with_companies);
+    }
+
+
+
+
+    @RequestMapping("/genre/movie/list")
+    String getGenres() {
+        String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",String.class);
+        return movieGenres;
+
+
+    }
+
+
+
 
     @Bean
     public RestTemplate rest() {
