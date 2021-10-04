@@ -144,8 +144,7 @@ public class MovieController {
             case "willsmith":
                 castID = "2888";
                 break;
-
-            case "jackiechan":
+                case "jackiechan":
                 castID = "18897";
                 break;
             case "scarlettjohansson":
@@ -170,6 +169,16 @@ public class MovieController {
 
     }
 
+    @RequestMapping("/search/movie/{movieName}")
+    public ResponseEntity<String> searchMovies (@PathVariable("movieName") String movieName){
+    return movieService.findMovie(movieName);
+    }
+
+    @RequestMapping("/search/person/{nameActor}")
+    public ResponseEntity<String> searchActor(@PathVariable("nameActor")String nameActor){
+        return movieService.findMovieOfActor(nameActor);
+    }
+
 
 
 
@@ -177,6 +186,8 @@ public class MovieController {
     String getGenres() {
         String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",String.class);
         return movieGenres;
+
+
 
 
     }
