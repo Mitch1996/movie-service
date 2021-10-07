@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 //import static com.netflix.Netflix.movie.MovieService.with_companies;
@@ -94,6 +97,11 @@ public class MovieController {
         return movieService.discovery(sort, include_vid, page, year, genre);
     }
 
+    @GetMapping("/movie/{movie_id}")
+    public ResponseEntity<String> getMovieVideos(@PathVariable Integer movie_id) {
+        System.out.println(movieService.MovieVideos(movie_id));
+        return movieService.MovieVideos(movie_id);
+    }
 
     @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
     public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("with_companies") String with_companies
@@ -111,7 +119,7 @@ public class MovieController {
 //    http://api.themoviedb.org/3/discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&with_cast=62
 
     @GetMapping("/{castID}")
-    public ResponseEntity<String> GetMoviesOfActor( @PathVariable("castID") String castID) {
+    public ResponseEntity<String> GetMoviesOfActor(@PathVariable("castID") String castID) {
 
         switch (castID) {
             case "brucewilles":
@@ -144,7 +152,7 @@ public class MovieController {
             case "willsmith":
                 castID = "2888";
                 break;
-                case "jackiechan":
+            case "jackiechan":
                 castID = "18897";
                 break;
             case "scarlettjohansson":
@@ -157,42 +165,30 @@ public class MovieController {
                 castID = "13240";
                 break;
 
-            default :
+            default:
                 System.out.println("actor not found");
                 break;
 
-
-
-
         }
         return movieService.actorMovies(castID);
-
     }
 
     @RequestMapping("/search/movie/{movieName}")
-    public ResponseEntity<String> searchMovies (@PathVariable("movieName") String movieName){
-    return movieService.findMovie(movieName);
+    public ResponseEntity<String> searchMovies(@PathVariable("movieName") String movieName) {
+        return movieService.findMovie(movieName);
     }
 
     @RequestMapping("/search/person/{nameActor}")
-    public ResponseEntity<String> searchActor(@PathVariable("nameActor")String nameActor){
+    public ResponseEntity<String> searchActor(@PathVariable("nameActor") String nameActor) {
         return movieService.findMovieOfActor(nameActor);
     }
 
 
-
-
     @RequestMapping("/genre/movie/list")
     String getGenres() {
-        String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",String.class);
+        String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US", String.class);
         return movieGenres;
-
-
-
-
     }
-
-
 
 
     @Bean
