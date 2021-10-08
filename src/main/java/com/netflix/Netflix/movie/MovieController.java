@@ -98,8 +98,7 @@ public class MovieController {
     }
 
     @GetMapping("/movie/{movie_id}")
-    public ResponseEntity<String> getMovieVideos(@PathVariable Integer movie_id) {
-        System.out.println(movieService.MovieVideos(movie_id));
+    public ResponseEntity<String> getMovieVideos(@PathVariable("movie_id") Integer movie_id) {
         return movieService.MovieVideos(movie_id);
     }
 
@@ -112,7 +111,7 @@ public class MovieController {
         } else {
             System.out.println("error movie company not found");
         }
-        return movieService.Disney(sort, include_vid, page, year, with_companies);
+        return movieService.Disney(sort, include_vid, page, with_companies, year);
     }
 
 

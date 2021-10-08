@@ -25,12 +25,12 @@ public interface MovieService {
             @PathVariable("sort") String sort,
             @PathVariable("include_vid") String include_vid,
             @PathVariable("page") Integer page,
-            @PathVariable("year") Integer year,
-            @PathVariable("with_companies") String with_companies);
+            @PathVariable("with_companies") String with_companies,
+            @PathVariable("year") Integer year);
 
 //https://api.themoviedb.org/3/movie/300/videos?api_key=48be4332df8912d896ba3e7762604d5f&language=en-US
     @RequestMapping(value = "movie/{movie_id}/videos?api_key=48be4332df8912d896ba3e7762604d5f&language=en-US", method = RequestMethod.GET)
-    ResponseEntity<String> MovieVideos(@PathVariable Integer movie_id);
+    ResponseEntity<String> MovieVideos(@PathVariable("movie_id") Integer movie_id);
 
     @RequestMapping(value = "person/{castID}/movie_credits?api_key=97d7b8e2bab65af96c47f53519958733", method = RequestMethod.GET)
     @ResponseBody
