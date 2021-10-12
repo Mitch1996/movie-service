@@ -117,7 +117,7 @@ public class MovieController {
 
 //    http://api.themoviedb.org/3/discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&with_cast=62
 
-    @GetMapping("/{castID}")
+    @GetMapping("/cast/{castID}")
     public ResponseEntity<String> GetMoviesOfActor(@PathVariable("castID") String castID) {
 
         switch (castID) {
