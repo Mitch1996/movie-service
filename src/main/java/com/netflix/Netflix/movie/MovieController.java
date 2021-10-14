@@ -22,6 +22,8 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
+
+
     @Value("${apiKey}")
     String apiKey;
 //    "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&with_companies={with_companies}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate" , method = RequestMethod.GET)
@@ -94,9 +96,12 @@ public class MovieController {
         return movieService.discovery(sort, include_vid, page, year, genre);
     }
 
-
-    @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
-    public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("with_companies") String with_companies
+//    {year}/
+//    /{page}
+    @GetMapping("discovery/disney/{sort}/{include_vid}/{with_companies}")
+//    @PathVariable("year") Integer year,
+//    @PathVariable("page") Integer page,
+    public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid,  @PathVariable("with_companies") String with_companies
     ) {
         if (with_companies.equals("disney")) {
             with_companies = "6125";
@@ -104,7 +109,7 @@ public class MovieController {
         } else {
             System.out.println("error movie company not found");
         }
-        return movieService.Disney(sort, include_vid, page, year, with_companies);
+        return movieService.Disney(sort, include_vid, with_companies);
     }
 
 
@@ -173,18 +178,19 @@ public class MovieController {
     public ResponseEntity<String> searchMovies (@PathVariable("movieName") String movieName){
     return movieService.findMovie(movieName);
     }
+//    https://tgmovieapp.herokuapp.com/movies/search/movie/
 
     @RequestMapping("/search/person/{nameActor}")
     public ResponseEntity<String> searchActor(@PathVariable("nameActor")String nameActor){
         return movieService.findMovieOfActor(nameActor);
     }
 
-
+//    https://tgmovieapp.herokuapp.com/movies/search/person/
 
 
     @RequestMapping("/genre/movie/list")
-    String getGenres() {
-        String movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",String.class);
+    Movie getGenres() {
+        Movie movieGenres = restTemplate.getForObject("https://api.themoviedb.org/3/genre/movie/list?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US",Movie.class);
         return movieGenres;
 
 
