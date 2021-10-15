@@ -101,9 +101,10 @@ public class MovieController {
     public ResponseEntity<String> getMovieVideos(@PathVariable("movie_id") Integer movie_id) {
         return movieService.MovieVideos(movie_id);
     }
-
-    @GetMapping("discovery/disney/{sort}/{include_vid}/{page}/{year}/{with_companies}")
-    public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("with_companies") String with_companies
+///{page}/{year}
+//@PathVariable("page") Integer page, @PathVariable("year") Integer year
+    @GetMapping("discovery/disney/{sort}/{include_vid}/{with_companies}")
+    public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid,  @PathVariable("with_companies") String with_companies
     ) {
         if (with_companies.equals("disney")) {
             with_companies = "6125";
@@ -111,7 +112,7 @@ public class MovieController {
         } else {
             System.out.println("error movie company not found");
         }
-        return movieService.Disney(sort, include_vid, page, with_companies, year);
+        return movieService.Disney(sort, include_vid,  with_companies);
     }
 
 

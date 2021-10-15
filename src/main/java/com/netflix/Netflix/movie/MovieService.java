@@ -24,9 +24,8 @@ public interface MovieService {
     ResponseEntity<String> Disney(
             @PathVariable("sort") String sort,
             @PathVariable("include_vid") String include_vid,
-            @PathVariable("page") Integer page,
-            @PathVariable("with_companies") String with_companies,
-            @PathVariable("year") Integer year);
+            @PathVariable("with_companies") String with_companies
+    );
 
 //https://api.themoviedb.org/3/movie/300/videos?api_key=48be4332df8912d896ba3e7762604d5f&language=en-US
     @RequestMapping(value = "movie/{movie_id}/videos?api_key=48be4332df8912d896ba3e7762604d5f&language=en-US", method = RequestMethod.GET)
