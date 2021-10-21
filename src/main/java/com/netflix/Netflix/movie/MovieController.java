@@ -103,6 +103,73 @@ public class MovieController {
         return movieService.discovery(sort, include_vid, page, year, genre);
     }
 
+
+    @GetMapping("discovery/{sort}/{include_vid}/{page}/{genre}")
+    public ResponseEntity<String> getDiscoverInfoGenre(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("genre") String genre) {
+        switch (genre) {
+            case "Action":
+                genre = "28";
+                break;
+            case "Adventure":
+                genre = "12";
+                break;
+            case "Animation":
+                genre = "16";
+                break;
+            case "Comedy":
+                genre = "35";
+                break;
+            case "Crime":
+                genre = "80";
+                break;
+            case "Documentary":
+                genre = "99";
+                break;
+            case "Drama":
+                genre = "18";
+                break;
+            case "Family":
+                genre = "10751";
+                break;
+            case "Fantasy":
+                genre = "14";
+                break;
+            case "History":
+                genre = "36";
+                break;
+            case "Horror":
+                genre = "27";
+                break;
+            case "Music":
+                genre = "10402";
+                break;
+            case "Mystery":
+                genre = "9648";
+                break;
+            case "Romance":
+                genre = "10749";
+                break;
+            case "Science_Fiction":
+                genre = "878";
+                break;
+            case "TV_Movie":
+                genre = "10770";
+                break;
+            case "Thriller":
+                genre = "53";
+                break;
+            case "War":
+                genre = "10752";
+                break;
+            case "Western":
+                genre = "37";
+                break;
+        }
+
+
+        return movieService.discoveryGenre(sort, include_vid, page, genre);
+    }
+
     @GetMapping("/movie/{movie_id}")
     public ResponseEntity<String> getMovieVideos(@PathVariable("movie_id") Integer movie_id) {
         return movieService.MovieVideos(movie_id);
