@@ -31,6 +31,12 @@ public class MovieController {
 //    "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&with_companies={with_companies}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate" , method = RequestMethod.GET)
 
 
+    @GetMapping("discovery/{sort}/{include_vid}/{page}/{year}")
+    public ResponseEntity<String> getDiscoverInfo(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year) {
+        return movieService.discoveryYear(sort, include_vid, page, year);
+    }
+
+
     @GetMapping("discovery/{sort}/{include_vid}/{page}/{year}/{genre}")
     public ResponseEntity<String> getDiscoverInfo(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid, @PathVariable("page") Integer page, @PathVariable("year") Integer year, @PathVariable("genre") String genre
     ) {
