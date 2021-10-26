@@ -25,6 +25,7 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
+
     @Value("${apiKey}")
     String apiKey;
 //    "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&with_companies={with_companies}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate" , method = RequestMethod.GET)
@@ -101,17 +102,16 @@ public class MovieController {
     public ResponseEntity<String> getMovieVideos(@PathVariable("movie_id") Integer movie_id) {
         return movieService.MovieVideos(movie_id);
     }
-///{page}/{year}
-//@PathVariable("page") Integer page, @PathVariable("year") Integer year
+
     @GetMapping("discovery/disney/{sort}/{include_vid}/{with_companies}")
     public ResponseEntity<String> getDisneyMovies(@PathVariable("sort") String sort, @PathVariable("include_vid") String include_vid,  @PathVariable("with_companies") String with_companies
     ) {
         if (with_companies.equals("disney")) {
             with_companies = "6125";
-            System.out.println(with_companies);
-        } else {
-            System.out.println("error movie company not found");
+
         }
+
+
         return movieService.Disney(sort, include_vid,  with_companies);
     }
 
@@ -165,9 +165,7 @@ public class MovieController {
                 castID = "13240";
                 break;
 
-            default:
-                System.out.println("actor not found");
-                break;
+
 
         }
         return movieService.actorMovies(castID);
@@ -190,9 +188,25 @@ public class MovieController {
         return movieGenres;
     }
 
+    @RequestMapping("/duration/movie/{movie_id}")
+    public ResponseEntity<String> getMovieDuration (@PathVariable("movie_id") Integer movie_id) {
+
+        return movieService.findMovieDuration(movie_id);
+    }
+
+
+
+
+
+
+
+
+
+
 
     @Bean
     public RestTemplate rest() {
         return new RestTemplate();
     }
+
 }

@@ -1,6 +1,7 @@
 package com.netflix.Netflix.movie;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "MovieDb", url = "${serviceURL}")
 public interface MovieService {
+
+
 
     @RequestMapping(value = "discover/movie?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US&sort_by=popularity.{sort}&include_adult=false&include_video={include_vid}&page={page}&primary_release_year={year}&with_genres={genre}&with_watch_monetization_types=flatrate", method = RequestMethod.GET)
     @ResponseBody
@@ -47,6 +50,17 @@ public interface MovieService {
     @ResponseBody
     ResponseEntity<String> findMovieOfActor(
             @PathVariable("actorName") String nameActor);
+
+
+    @RequestMapping(value = "movie/{movie_id}?api_key=97d7b8e2bab65af96c47f53519958733&language=en-US" , method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<String> findMovieDuration(
+            @PathVariable("movie_id") Integer movie_id);
+
+
+
+
+
 
 
 }

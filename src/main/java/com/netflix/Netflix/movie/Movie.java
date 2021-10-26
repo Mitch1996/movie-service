@@ -5,11 +5,16 @@ public class Movie {
     private String movieId;
     private String name;
     private String description;
+    private int runtime;
 
     public Movie(String movieId, String name, String description) {
         this.movieId = movieId;
         this.name = name;
         this.description = description;
+    }
+
+    public Movie(int movieDuration) {
+        this.runtime = movieDuration;
     }
 
     public String getMovieId() {
@@ -34,5 +39,13 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getMovieDuration() {
+        return runtime;
+    }
+
+    public void setMovieDuration(int movieDuration) {
+        this.runtime = movieDuration;
     }
 }
