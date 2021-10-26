@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 //import static com.netflix.Netflix.movie.MovieService.with_companies;
-@CrossOrigin
 @RestController
 @RequestMapping("/api/v1")
 public class MovieController {
